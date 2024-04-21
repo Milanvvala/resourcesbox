@@ -1,6 +1,6 @@
 
-Library : NextJS, TailwindCSS, Shadcn UI,
+Library : NextJS, TailwindCSS, Shadcn UI, ClerkJS
 
-Packages : 
+Packages : @clerk/nextjs prisma/client stripe react-markdown query-string
 
 pnpm dlx shadcn-ui@latest add button
