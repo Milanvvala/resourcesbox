@@ -1,4 +1,7 @@
-export const placeholderJobs = [
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient()
+
+export const placeholderProducts = [
   {
     title: "Full-Stack Developer at Stripe",
     type: "Full-time",
@@ -48,7 +51,7 @@ As a Full-Stack Developer at Stripe, you will be working on cutting-edge technol
 - Continuous learning and development opportunities.
 
 Stripe is an equal opportunity employer. We value diversity and are committed to creating an inclusive environment for all employees.
-`,
+`
   },
   {
     title: "Full-Stack Developer at Vercel",
@@ -103,7 +106,7 @@ Job Description: We're looking for a talented Full-Stack Developer to join our d
 Vercel is an equal opportunity employer. We celebrate diversity and are committed to creating an inclusive environment for all employees.
 
 Join us at Vercel and be a part of shaping the future of web development!
-`,
+`
   },
   {
     title: "ChatGPT Backend Developer at OpenAI",
@@ -155,7 +158,7 @@ We are seeking a skilled ChatGPT Backend Developer to join our innovative team. 
 OpenAI is committed to diversity in its workforce and is proud to be an equal opportunity employer.
 
 If you're passionate about AI and want to contribute to cutting-edge technology that impacts the world, join us at OpenAI!
-`,
+`
   },
   {
     title: "Intern at Coding in Flow",
@@ -170,7 +173,7 @@ If you're passionate about AI and want to contribute to cutting-edge technology 
 **Help build the best coding tutorials**
 
 I might not be able to pay you a lot, but I can offer you a lot of experience and a lot of fun. I'm looking for someone who is passionate about coding and wants to help me create the best coding tutorials on YouTube.
-`,
+`
   },
   {
     title: "Contractor at SmartDiary.co",
@@ -187,7 +190,7 @@ I might not be able to pay you a lot, but I can offer you a lot of experience an
 Smart Diary is the intelligent journaling app with AI integration. I'm looking for someone who can help me build this website. 
 
 Try it out for free at [https://smartdiary.co](https://smartdiary.co).
-`,
+`
   },
   {
     title: "Software Engineer at Microsoft",
@@ -238,7 +241,7 @@ Job Description: We are looking for a talented and dedicated Software Engineer C
 Microsoft is an equal opportunity employer and supports workforce diversity.
 
 As a Microsoft contractor, you'll have the opportunity to work on exciting projects and make a significant impact in the tech world. Join us and be a part of Microsoft's innovative journey!
-`,
+`
   },
   {
     title: "Full-Stack Developer at Apple",
@@ -291,7 +294,7 @@ We are seeking a Full-Stack Developer to join our forward-thinking development t
 Apple is an equal opportunity employer committed to diversity and inclusion.
 
 Join Apple and be a part of a team that's dedicated to making a difference in the world through technology and innovation!
-`,
+`
   },
   {
     title: "Junior Web Developer at Shopify",
@@ -342,6 +345,30 @@ We are looking for a part-time Junior Web Developer to join our development team
 Shopify is an equal opportunity employer committed to diversity and inclusion in the workplace.
 
 This is a fantastic opportunity for those looking to kickstart their career in web development while working for one of the most innovative companies in e-commerce. Join us at Shopify and help redefine commerce around the world!
-`,
-  },
-];
+`
+  }
+]
+
+async function main() {
+  await Promise.all(
+    placeholderProducts.map(async (product: any) => {
+      await prisma.product.upsert({
+        where: {
+          slug: product.slug
+        },
+        update: product,
+        create: product
+      })
+    })
+  )
+}
+
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    console.error("Error while seeding database:", e)
+    await prisma.$disconnect()
+    process.exit(1)
+  })
