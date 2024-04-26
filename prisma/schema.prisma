@@ -43,7 +43,7 @@ model Resource {
   visitLink   String?
   published   Boolean @default(false)
 
-  tags Tags[]
+  // tags Tags[]
 
   categoryId Int?
   category   Category? @relation(fields: [categoryId], references: [id])
@@ -64,11 +64,11 @@ model Category {
   resource Resource[]
 }
 
-model Tags {
-  id   Int     @id @default(autoincrement())
-  tag  String
-  link String?
-  icon String?
+// model Tags {
+//   id   Int     @id @default(autoincrement())
+//   tag  String
+//   link String?
+//   icon String?
 
-  resources Resource[]
-}
+//   resources Resource[]
+// }
