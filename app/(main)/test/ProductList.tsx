@@ -10,7 +10,7 @@ interface Props {
 export default function ProductList(props: Props) {
   const { title, companyName, type, location, locationType } = props.product
   return (
-    <>
+    
       <article className="flex gap-3 border rounded p-5 hover:bg-muted/60">
         <Image
           src={img}
@@ -48,6 +48,6 @@ export default function ProductList(props: Props) {
           </span>
         </div>
       </article>
-    </>
+    
   )
 }
