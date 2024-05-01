@@ -3,7 +3,6 @@ import { Label } from "@/components/ui/label"
 import { db } from "@/lib/db"
 import SelectComp from "./SelectComp"
 import { jobTypes } from "./SelectTypes"
-import { Button } from "@/components/ui/button"
 import { ProductFilterValues, productFilterSchema } from "@/lib/validation"
 import { redirect } from "next/navigation"
 import FormSubmitButton from "@/components/FormSubmitButton"
@@ -52,7 +51,7 @@ export default async function Sidebar(props: Props) {
 
   return (
     <div className="md:-[260px] sticky top-0 h-fit bg-background border rounded p-4">
-      <form action={filterJobs}>
+      <form action={filterJobs} key={JSON.stringify(props.defaultValues)}>
         <div className="space-y-4">
           <div className="flex flex-col gap-2">
             <Label>Search</Label>

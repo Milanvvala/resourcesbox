@@ -1,9 +1,22 @@
-import { db } from "@/lib/db"
-import ItemList from "./ItemList"
-import Sidebar from "./Filters"
+import SheetComp from "./SheetComp"
+import Results from "./Results"
+import { ResourceFilterValues } from "@/lib/validation"
 
-export default async function page() {
-  const data = await db.resource.findMany()
+interface PageProps {
+  searchParams: {
+    q?: string
+    category?: string
+  }
+}
+
+export default async function page(props: PageProps) {
+  const { q, category } = props.searchParams
+
+  const filterValues: ResourceFilterValues = {
+    q,
+    category
+  }
+
   return (
     <>
       <main className="m-auto my-10 space-y-10 px-5">
@@ -13,13 +26,12 @@ export default async function page() {
           </h1>
           <p className="text-muted-foreground">Find your dream job.</p>
         </div>
-        <section className="flex flex-col md:flex-row gap-4">
-          <Sidebar />
-          <div className="grow grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {data.map((i) => {
-              return <ItemList item={i} key={i.id} />
-            })}
+        <section className="flex flex-col gap-4">
+          <div className="mr-6">
+            {/* <Sidebar /> */}
+            <SheetComp defaultValues={filterValues} />
           </div>
+          <Results filterValues={filterValues} />
         </section>
       </main>
     </>

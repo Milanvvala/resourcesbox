@@ -10,9 +10,6 @@ async function filterResources(formdata: FormData) {
 }
 
 export default async function Sidebar() {
-  const locations = await db.resource.findMany({
-    // where: { approved: true }, select: { location: true }, distinct: ["location"]
-  })
 
   const diffCat = (await db.category
     .findMany({

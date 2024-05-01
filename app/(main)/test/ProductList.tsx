@@ -11,7 +11,7 @@ export default function ProductList(props: Props) {
   const { title, companyName, type, location, locationType } = props.product
   return (
     
-      <article className="flex gap-3 border rounded p-5 hover:bg-muted/60">
+      <article className="flex gap-3 border border- rounded p-5 hover:bg-muted/60">
         <Image
           src={img}
           alt="logo"
