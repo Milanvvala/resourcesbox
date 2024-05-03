@@ -18,7 +18,7 @@ async function filterJobs(formdata: FormData) {
 
   const values = Object.fromEntries(formdata.entries())
   const parseResult = productFilterSchema.parse(values)
-  console.log(parseResult)
+  // console.log(parseResult)
 
   let { q, type, location, remote } = parseResult
 

@@ -15,31 +15,12 @@ import { db } from "@/lib/db"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import SelectComp from "../test/SelectComp"
-import { ResourceFilterValues, resourceFilterSchema } from "@/lib/validation"
-import { redirect } from "next/navigation"
+import { ResourceFilterValues } from "@/lib/validation"
+import { Checkbox } from "@/components/ui/checkbox"
+import { filterResources } from "@/actions/filter-resources"
 
 interface Props {
   defaultValues: ResourceFilterValues
-}
-
-async function filterResources(formdata: FormData) {
-  "use server"
-  // console.log(formdata.get("q") as string)
-
-  const values = Object.fromEntries(formdata.entries())
-  const parseResult = resourceFilterSchema.parse(values)
-  console.log(parseResult)
-
-  let { q, category } = parseResult
-
-  if (category == "all") category = ""
-
-  const searchParams = new URLSearchParams({
-    ...(q && { q: q.trim() }),
-    ...(category && { category })
-  })
-
-  redirect(`/search?${searchParams.toString()}`)
 }
 
 export default async function SheetComp(props: Props) {
@@ -47,7 +28,7 @@ export default async function SheetComp(props: Props) {
   const locations = await db.resource.findMany({
     // where: { approved: true }, select: { location: true }, distinct: ["location"]
   })
-  console.log(locations)
+  // console.log(locations)
 
   const diffCat = (await db.category
     .findMany({
@@ -56,7 +37,7 @@ export default async function SheetComp(props: Props) {
     .then((categories) =>
       categories.map(({ label }) => label).filter(Boolean)
     )) as string[]
-    console.log(diffCat)
+  // console.log(diffCat)
 
   return (
     <Sheet>
@@ -80,9 +61,11 @@ export default async function SheetComp(props: Props) {
               <Input name="q" placeholder="Title,Company, etc." id="q" />
             </div>
             <SelectComp data={diffCat} label="category" defaultValue="all" />
-            {/* <Button type="submit" className="w-full font-semibold text-md">
-              Filter
-            </Button> */}
+
+            <div className="flex items-center gap-2">
+              <Checkbox id="deal" name="deal" className="rounded" />
+              <Label htmlFor="deal">Deals</Label>
+            </div>
 
             <SheetFooter>
               <SheetClose asChild>

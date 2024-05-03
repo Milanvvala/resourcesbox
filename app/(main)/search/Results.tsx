@@ -3,6 +3,7 @@ import ItemList from "./ItemList"
 import { db } from "@/lib/db"
 import { ResourceFilterValues } from "@/lib/validation"
 import { Prisma } from "@prisma/client"
+import Link from "next/link"
 
 interface Props {
   filterValues: ResourceFilterValues
@@ -31,7 +32,7 @@ export default async function Results(props: Props) {
     : {}
 
   const where: Prisma.ResourceWhereInput = {
-    AND: [searchFilter, categoryId ? {categoryId} : {}]
+    AND: [searchFilter, categoryId ? { categoryId } : {}]
   }
   const data = await db.resource.findMany({
     where,
@@ -40,7 +41,11 @@ export default async function Results(props: Props) {
   return (
     <div className="grow grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {data.map((i) => {
-        return <ItemList item={i} key={i.id} />
+        return (
+          <Link key={i.id} href={`/resource/${i.slug}`} className="block">
+            <ItemList item={i} />
+          </Link>
+        )
       })}
 
       {data.length === 0 && (

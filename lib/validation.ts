@@ -15,10 +15,11 @@ export const resourceFilterSchema = z.object({
   // location: z.string().optional(),
   // remote: z.coerce.boolean().optional()
   category: z.string().optional(),
+  deals: z.coerce.boolean().optional()
   // price : z.coerce.number().optional(),
   // availableOn : z.coerce.number().optional(),
 })
 
 export type ResourceFilterValues = z.infer<typeof resourceFilterSchema>
 
-// coerce : change in string 
+// coerce : change in string
