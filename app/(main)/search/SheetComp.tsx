@@ -1,4 +1,3 @@
-import React from "react"
 import {
   Sheet,
   SheetClose,
@@ -9,26 +8,24 @@ import {
   SheetTitle,
   SheetTrigger
 } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
 import { SlidersHorizontal } from "lucide-react"
 import { db } from "@/lib/db"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { Button, Label, Input, Checkbox } from "@/components/comps"
 import SelectComp from "../test/SelectComp"
 import { ResourceFilterValues } from "@/lib/validation"
-import { Checkbox } from "@/components/ui/checkbox"
 import { filterResources } from "@/actions/filter-resources"
 
 interface Props {
   defaultValues: ResourceFilterValues
 }
 
+// async function filterResources(formdata: FormData) {
+//   "use server"
+//   console.log(formdata.get("q") as string)
+// }
+
 export default async function SheetComp(props: Props) {
   const {} = props.defaultValues
-  const locations = await db.resource.findMany({
-    // where: { approved: true }, select: { location: true }, distinct: ["location"]
-  })
-  // console.log(locations)
 
   const diffCat = (await db.category
     .findMany({
@@ -37,7 +34,6 @@ export default async function SheetComp(props: Props) {
     .then((categories) =>
       categories.map(({ label }) => label).filter(Boolean)
     )) as string[]
-  // console.log(diffCat)
 
   return (
     <Sheet>
@@ -58,7 +54,7 @@ export default async function SheetComp(props: Props) {
           <div className="space-y-4">
             <div className="flex flex-col gap-2">
               <Label>Search</Label>
-              <Input name="q" placeholder="Title,Company, etc." id="q" />
+              <Input name="q" placeholder="Title, Company, etc." id="q" />
             </div>
             <SelectComp data={diffCat} label="category" defaultValue="all" />
 

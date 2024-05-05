@@ -7,8 +7,9 @@ import Image from "next/image"
 interface Props {
   item: Resource
 }
+
 export default async function ItemList(props: Props) {
-  const { title, categoryId, badge, logoUrl } = props.item
+  const { title, categoryId, badge, logoUrl, description } = props.item
 
   const cat = await db.category.findFirst({
     where: { id: categoryId || 0 }
@@ -24,28 +25,29 @@ export default async function ItemList(props: Props) {
         className="rounded self-center w-16 h-16"
       />
       <section className="flex-grow space-y-3">
-        <div>
+        <div className="">
           <h2 className="text-md font-semibold line-clamp-1">{title}</h2>
-          <p className="text-muted-foreground text-sm">{cat?.label}</p>
-        </div>
-        <div className="text-muted-foreground mt-0">
-          {/* <Badge className="rounded md:flex items-center space-x-1 mt-0"  variant={"secondary"}> {badge} </Badge>
-            <p className="flex items-center gap-1 sm:hidden"> <Briefcase size={16} className="shrink-0 " /> {type} </p>
-            <p className="flex items-center gap-1 "> <MapPin size={16} className="shrink-0 " /> {locationType || "LocationType"} </p> 
-             <p className="flex items-center gap-1 "> <Globe2 size={16} className="shrink-0 " /> {location || "location"} </p> */}
+          {/* <p className="text-muted-foreground text-sm">{cat?.label}</p> */}
+          <p className="text-muted-foreground text-sm line-clamp-2">
+            {description}
+          </p>
         </div>
       </section>
-      <div className="hidden sm:flex flex-col shrink-0 items-end justify-between">
+      <div className="flex flex-col shrink-0 items-end justify-between">
         {badge && (
           <Badge
-            className="rounded absolute -top-3 right-3 hidden md:flex items-center space-x-1"
+            className="rounded absolute -top-3 right-3  md:flex items-center space-x-1"
             variant={"secondary"}
           >
             {badge}
           </Badge>
         )}
-        {/* <span className="flex items-center gap-1.5 text-muted-foreground"> <ExternalLink size={16} /> </span> */}
       </div>
+
+      <ExternalLink
+        size={16}
+        className="absolute text-muted-foreground right-3 bottom-3"
+      />
     </article>
   )
 }

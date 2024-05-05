@@ -1,10 +1,9 @@
-import Availability from "@/components/Availability"
+import Availability from "@/components/custom/Availability"
 import { Button } from "@/components/ui/button"
 import { Resource } from "@prisma/client"
-import { Briefcase, ExternalLink, Globe2, MapPin } from "lucide-react"
+import { Briefcase, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
 
 interface PageProps {
   resource: Resource
@@ -14,8 +13,8 @@ export default function Details(props: PageProps) {
   const { resource } = props
 
   return (
-    <div className="flex flex-col md:flex-raw items-start gap-6 justify-between p-3 md:p-6 md:border rounded-lg md:my-8 my-4">
-      <div className="flex flex-col sm:flex-raw sm:items-center gap-4 justify-between ">
+    <div className="flex flex-col sm:flex-row items-start gap-6 justify-between p-4 md:p-6 md:border rounded-lg md:my-8 my-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 justify-between ">
         {resource.logoUrl && (
           <Image
             src={resource.logoUrl}

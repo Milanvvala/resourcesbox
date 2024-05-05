@@ -1,14 +1,13 @@
 import {
   SiLinux,
   SiApple,
-  SiAmazon,
   SiAppstore,
   SiGoogleplay
 } from "react-icons/si"
 import { RiAndroidFill } from "react-icons/ri"
 import { IoGlobe, IoExtensionPuzzle } from "react-icons/io5"
 import { ImWindows8 } from "react-icons/im"
-import { TooltipDemo } from "./TooltipComp"
+import TooltipDemo from "../utils/TooltipComp"
 
 interface AvailabilityProps {
   number: Number

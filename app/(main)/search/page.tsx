@@ -27,8 +27,7 @@ export default async function page(props: PageProps) {
           <p className="text-muted-foreground">Find your dream job.</p>
         </div>
         <section className="flex flex-col gap-4">
-          <div className="mr-6">
-            {/* <Sidebar /> */}
+          <div className="text-right mb-2">
             <SheetComp defaultValues={filterValues} />
           </div>
           <Results filterValues={filterValues} />

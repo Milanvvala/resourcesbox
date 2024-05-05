@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import React, { cache } from "react"
 import Details from "./Details"
-import Markdown from "@/components/Markdown"
+import Markdown from "@/components/utils/Markdown"
 
 interface PageProps {
   params: { slug: string }
