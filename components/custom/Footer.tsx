@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { brandTagline, brandTitle, footerLinks } from "@/lib/consts"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -11,8 +11,8 @@ import {
 
 export default function Footer() {
   const pathName = usePathname()
-  console.log('footer', pathName)
-  
+  console.log("footer", pathName)
+
   return (
     <footer className="border-t mt-4">
       <div className="mx-auto max-w-5xl space-y-5 px-3 py-5">
@@ -22,7 +22,7 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">{brandTagline}</p>
           </div>
 
-          <div className="flex flex-col space-y-2 text-sm text-muted-foreground">
+          <div className="flex flex-col space-y-2 text-sm text-muted-foreground ">
             <div className="flex flex-wrap gap-5 text-sm text-muted-foreground justify-center">
               {footerLinks.map((ele) => {
                 return (
@@ -37,7 +37,7 @@ export default function Footer() {
               })}
             </div>
 
-            <span className="inline-flex sm:ml-auto sm:mt-0 justify-center ">
+            <span className="inline-flex sm:ml-auto sm:mt-0 justify-center sm:text-right ">
               <a className="text-gray-400">
                 <SiInstagram size={16} className="hover:text-primary" />
               </a>

@@ -6,15 +6,19 @@ interface PageProps {
   searchParams: {
     q?: string
     category?: string
+    deal?: string
+    price?: string
   }
 }
 
 export default async function page(props: PageProps) {
-  const { q, category } = props.searchParams
+  const { q, category, deal, price } = props.searchParams
 
   const filterValues: ResourceFilterValues = {
     q,
-    category
+    category,
+    deal,
+    price
   }
 
   return (

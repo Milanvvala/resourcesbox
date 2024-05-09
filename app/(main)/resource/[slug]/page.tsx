@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import React, { cache } from "react"
 import Details from "./Details"
 import Markdown from "@/components/utils/Markdown"
+import MarkdownRenderer from "@/components/MDX"
 
 interface PageProps {
   params: { slug: string }

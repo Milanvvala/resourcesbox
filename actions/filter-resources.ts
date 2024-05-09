@@ -1,4 +1,4 @@
-'use server'
+"use server"
 
 import { resourceFilterSchema } from "@/lib/validation"
 import { redirect } from "next/navigation"
@@ -11,14 +11,16 @@ export async function filterResources(formdata: FormData) {
   const parseResult = resourceFilterSchema.parse(values)
   console.log(parseResult)
 
-  let { q, category, deals } = parseResult
+  let { q, category, deal, price } = parseResult
 
   if (category == "all") category = ""
+  if (price == "all") price = ""
 
   const searchParams = new URLSearchParams({
     ...(q && { q: q.trim() }),
     ...(category && { category }),
-    ...(deals && { deals: "true" })
+    ...(price && { price }),
+    ...(deal && { deal })
   })
 
   redirect(`/search?${searchParams.toString()}`)

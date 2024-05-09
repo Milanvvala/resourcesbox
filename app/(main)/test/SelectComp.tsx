@@ -18,7 +18,7 @@ export default function SelectComp(props: Props) {
   const { data, label, defaultValue } = props
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor={label}>{label}</Label>
+      <Label htmlFor={label} className="capitalize">{label}</Label>
       <Select defaultValue={defaultValue} name={label}>
         <SelectTrigger>
           <SelectValue placeholder={label} />

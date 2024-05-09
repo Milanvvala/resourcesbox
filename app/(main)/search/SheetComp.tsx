@@ -19,11 +19,6 @@ interface Props {
   defaultValues: ResourceFilterValues
 }
 
-// async function filterResources(formdata: FormData) {
-//   "use server"
-//   console.log(formdata.get("q") as string)
-// }
-
 export default async function SheetComp(props: Props) {
   const {} = props.defaultValues
 
@@ -34,6 +29,14 @@ export default async function SheetComp(props: Props) {
     .then((categories) =>
       categories.map(({ label }) => label).filter(Boolean)
     )) as string[]
+
+  const pricing = [
+    "Free",
+    "Freemium",
+    "Free + Paid",
+    "One Time Payment",
+    "Subscription"
+  ]
 
   return (
     <Sheet>
@@ -57,6 +60,7 @@ export default async function SheetComp(props: Props) {
               <Input name="q" placeholder="Title, Company, etc." id="q" />
             </div>
             <SelectComp data={diffCat} label="category" defaultValue="all" />
+            <SelectComp data={pricing} label="price" defaultValue="all" />
 
             <div className="flex items-center gap-2">
               <Checkbox id="deal" name="deal" className="rounded" />
