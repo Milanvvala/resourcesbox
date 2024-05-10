@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge"
-import { db } from "@/lib/db"
+import { Badge } from "@/components/comps"
+import { db } from "@/lib"
 import { Resource } from "@prisma/client"
 import { ExternalLink } from "lucide-react"
 import Image from "next/image"
@@ -27,7 +27,6 @@ export default async function ItemList(props: Props) {
       <section className="flex-grow space-y-3">
         <div className="">
           <h2 className="text-md font-semibold line-clamp-1">{title}</h2>
-          {/* <p className="text-muted-foreground text-sm">{cat?.label}</p> */}
           <p className="text-muted-foreground text-sm line-clamp-2">
             {description}
           </p>

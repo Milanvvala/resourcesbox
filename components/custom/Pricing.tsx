@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { CalendarClock, Handshake, InfoIcon, RefreshCw } from "lucide-react"
 import { MdMoneyOff } from "react-icons/md"
 import { TbPaywall } from "react-icons/tb"
-import { cn } from "./utils"
+import { cn } from "../../lib/utils"
 
 const types = [
   {

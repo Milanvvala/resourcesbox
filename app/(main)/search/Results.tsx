@@ -1,7 +1,5 @@
-import React from "react"
+import { ResourceFilterValues, db } from "@/lib"
 import ItemList from "./ItemList"
-import { db } from "@/lib/db"
-import { ResourceFilterValues } from "@/lib/validation"
 import { Prisma } from "@prisma/client"
 import Link from "next/link"
 

@@ -1,6 +1,8 @@
-import SheetComp from "./SheetComp"
+import SheetComp from "@/components/utils/SheetComp"
 import Results from "./Results"
 import { ResourceFilterValues } from "@/lib/validation"
+import { Button, FilterForm } from "@/components/comps"
+import { SlidersHorizontal } from "lucide-react"
 
 interface PageProps {
   searchParams: {
@@ -9,6 +11,14 @@ interface PageProps {
     deal?: string
     price?: string
   }
+}
+
+function trigger() {
+  return (
+    <Button variant={"secondary"} size={"sm"} className="text-lg gap-2">
+      <SlidersHorizontal className="h-4 w-4" /> Filters
+    </Button>
+  )
 }
 
 export default async function page(props: PageProps) {
@@ -20,6 +30,7 @@ export default async function page(props: PageProps) {
     deal,
     price
   }
+  const defaultValues = {}
 
   return (
     <>
@@ -32,7 +43,14 @@ export default async function page(props: PageProps) {
         </div>
         <section className="flex flex-col gap-4">
           <div className="text-right mb-2">
-            <SheetComp defaultValues={filterValues} />
+            <SheetComp
+              trigger={trigger()}
+              title="Filters"
+              description="Filter Products based on Requirements"
+              side='right'
+            >
+              <FilterForm defaultValues={defaultValues} />
+            </SheetComp>
           </div>
           <Results filterValues={filterValues} />
         </section>

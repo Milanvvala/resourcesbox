@@ -1,8 +1,6 @@
-import Availability from "@/components/custom/Availability"
-import { Button } from "@/components/ui/button"
-import Pricing from "@/lib/Pricing"
+import { Availability, Button, Pricing } from "@/components/comps"
 import { Resource } from "@prisma/client"
-import { Briefcase, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -54,9 +52,6 @@ export default function Details(props: PageProps) {
           </p>
 
           <div className="text-muted-foreground space-y-2">
-            {/* <p className="flex items-center gap-1 ">
-              <Briefcase size={16} className="shrink-0 " /> {resource.price}
-            </p> */}
             <Pricing type={resource.price || 2} />
             <Availability number={123456789} />
           </div>
