@@ -1,11 +1,15 @@
-import { TooltipComp } from "@/components/comps"
-import { Badge } from "@/components/ui/badge"
-import { CalendarClock, Handshake, InfoIcon, RefreshCw } from "lucide-react"
+import { Badge, TooltipComp } from "@/components/comps"
+import { InfoIcon } from "lucide-react"
+import { SelectDataType } from "@/components/utils/SelectComp"
+import { CalendarClock, Handshake, RefreshCw } from "lucide-react"
 import { MdMoneyOff } from "react-icons/md"
 import { TbPaywall } from "react-icons/tb"
-import { cn } from "../../lib/utils"
 
-const types = [
+interface Props {
+  type: number
+}
+
+export const price_types: SelectDataType[] = [
   {
     id: 0,
     label: "Free",
@@ -42,19 +46,15 @@ const types = [
   }
 ]
 
-interface Props {
-  type: number
-}
-
 export default function Pricing({ type }: Props) {
-  const filteredTypes = types.filter((ele) => ele.id === type)
+  const filteredTypes = price_types.filter((ele) => ele.id === type)
 
   return (
     <>
       {filteredTypes.map((ele) => {
         return (
           <div key={ele.id} className="mx-2">
-            <TooltipComp content={ele.info} side={"right"}>
+            <TooltipComp content={ele.info || "info"} side={"right"}>
               <Badge
                 className="rounded md:flex items-center space-x-1 gap-2 text-md my-1"
                 variant={"outline"}

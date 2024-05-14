@@ -40,7 +40,7 @@ const md = `
 Hello World 
 `
 
-const resources = [
+const Products = [
   // { title:'', description:'', markdown:'', availableOn:123, badge:'', price:1,logoUrl:'', visitLink:'', },
   {
     title: "Notion",

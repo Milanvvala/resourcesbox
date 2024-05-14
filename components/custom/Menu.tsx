@@ -1,14 +1,18 @@
 import {
+  Sheet,
   SheetClose,
+  SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
-  SheetTitle
+  SheetTitle,
+  SheetTrigger
 } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import { brandTagline, brandTitle, cn, navbarLinks } from "@/lib"
 import Image from "next/image"
 import Link from "next/link"
-import { Button, SheetComp, Separator } from "@/components/comps"
+import { Button, Separator } from "@/components/comps"
 
 interface Props {
   pathName: string
@@ -16,14 +20,6 @@ interface Props {
 
 export default function NavMenu(props: Props) {
   const { pathName } = props
-
-  function trigger() {
-    return (
-      <Button variant={"outline"} className="sm:hidden" size={"icon"}>
-        <Menu size={16} />
-      </Button>
-    )
-  }
 
   function NavLinks() {
     return (
@@ -55,7 +51,7 @@ export default function NavMenu(props: Props) {
 
   function header() {
     return (
-      <SheetHeader className="mb-4">
+      <div>
         <div className="flex gap-3 items-center">
           <Image src="/plogo.png" width={40} height={40} alt="logo-image" />
           <SheetTitle>{brandTitle}</SheetTitle>
@@ -63,29 +59,41 @@ export default function NavMenu(props: Props) {
         <SheetDescription className="text-left">
           {brandTagline}
         </SheetDescription>
-      </SheetHeader>
-    )
-  }
-
-  function close() {
-    return (
-      <Button asChild type="submit" className="w-full font-semibold text-md">
-        <Link href={"/create"}>Submit Tool</Link>
-      </Button>
+      </div>
     )
   }
 
   return (
     <>
-      <SheetComp
-        trigger={trigger()}
-        side="left"
-        header={header()}
-        close={close()}
-      >
-        <Separator />
-        <NavLinks />
-      </SheetComp>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant={"outline"} className="sm:hidden" size={"icon"}>
+            <Menu size={16} />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side={"left"}>
+          <SheetHeader className="mb-4">
+            <div className="flex gap-3 items-center">
+              <Image src="/plogo.png" width={40} height={40} alt="logo-image" />
+              <SheetTitle>{brandTitle}</SheetTitle>
+            </div>
+            <SheetDescription className="text-left">
+              {brandTagline}
+            </SheetDescription>
+          </SheetHeader>
+          <Separator />
+          <NavLinks />
+          <SheetFooter>
+            <Button
+              asChild
+              type="submit"
+              className="w-full font-semibold text-md"
+            >
+              <Link href="/create">Submit Tool</Link>
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </>
   )
 }

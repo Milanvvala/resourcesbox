@@ -15,7 +15,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t mt-4">
-      <div className="mx-auto max-w-5xl space-y-5 px-3 py-5">
+      <div className="mx-auto space-y-5 px-6 py-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center justify-between">
           <div className="space-y-2 text-center sm:text-left">
             <h3 className="text-xl font-semibold">{brandTitle}</h3>

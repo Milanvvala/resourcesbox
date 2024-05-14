@@ -1,14 +1,14 @@
 "use server"
 
-import { resourceFilterSchema } from "@/lib/validation"
+import { productFilterSchema } from "@/lib"
 import { redirect } from "next/navigation"
 
-export async function filterResources(formdata: FormData) {
+export async function searchUrl(formdata: FormData) {
   "use server"
   // console.log(formdata.get("q") as string)
 
   const values = Object.fromEntries(formdata.entries())
-  const parseResult = resourceFilterSchema.parse(values)
+  const parseResult = productFilterSchema.parse(values)
   console.log(parseResult)
 
   let { q, category, deal, price } = parseResult

@@ -13,8 +13,8 @@ const config = {
   theme: {
     screens: {
       xs: "400px",
-      sm: "640px",
-      md: "960px",
+      sm: "700px",
+      md: "1024px",
       lg: "1280px"
     },
     container: {

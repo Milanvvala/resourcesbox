@@ -1,60 +1,72 @@
-import { ResourceFilterValues, db } from "@/lib"
-import ItemList from "./ItemList"
-import { Prisma } from "@prisma/client"
 import Link from "next/link"
+import { Badge } from "@/components/comps"
+import { db, ProductFilterValues } from "@/lib"
+import { Product } from "@prisma/client"
+import { ExternalLink } from "lucide-react"
+import Image from "next/image"
+import { filterProducts } from "@/lib/filter-products"
 
 interface Props {
-  filterValues: ResourceFilterValues
+  filtervalues: ProductFilterValues
 }
 
-export default async function Results(props: Props) {
-  let { q, category, price, deal } = props.filterValues
-  let categoryId
-  let Pricing
-  console.log(deal, "result")
+interface ProductListProps {
+  item: Product
+}
 
-  if (category == "Development") categoryId = 1
-  if (category == "Marketing") categoryId = 2
-  if (category == "Design") categoryId = 3
+async function ProductList(props: ProductListProps) {
+  const { title, categoryId, badge, logoUrl, description } = props.item
 
-  // if (price == '') Pricing = ''
-  if (price == "Free") Pricing = 1
-  if (price == "Freemium") Pricing = 2
-  if (price == "Free + Paid") Pricing = 3
-  if (price == "One Time Payment") Pricing = 4
-  if (price == "Subscription") Pricing = 5
-
-  const searchString = q
-    ?.split(" ")
-    .filter((word) => word.length > 0)
-    .join(" & ")
-
-  const searchFilter: Prisma.ResourceWhereInput = searchString
-    ? {
-        OR: [{ title: { search: searchString } }, ]
-      }
-    : {}
-
-  const where: Prisma.ResourceWhereInput = {
-    AND: [
-      searchFilter,
-      categoryId ? { categoryId } : {},
-      price ? { price: Pricing } : {},
-      deal === "on" ? { badge: "Deal" } : {}
-    ]
-  }
-
-  const data = await db.resource.findMany({
-    where,
-    orderBy: { createdAt: "desc" }
+  const cat = await db.category.findFirst({
+    where: { id: categoryId || 0 }
   })
 
   return (
-    <div className="grow grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <article className="flex gap-3 border hover:border-primary rounded p-3 hover:bg-muted/60 h-fit relative">
+      <Image
+        src={logoUrl || "/plogo.png"}
+        alt="logo"
+        width={64}
+        height={64}
+        className="rounded self-center w-16 h-16"
+      />
+      <section className="flex-grow space-y-3">
+        <div className="">
+          <h2 className="text-md font-semibold line-clamp-1">{title}</h2>
+          <p className="text-muted-foreground text-sm line-clamp-2">
+            {description}
+          </p>
+        </div>
+      </section>
+      <div className="flex flex-col shrink-0 items-end justify-between">
+        {badge && (
+          <Badge
+            className="rounded absolute -top-3 right-3  md:flex items-center space-x-1"
+            variant={"secondary"}
+          >
+            {badge}
+          </Badge>
+        )}
+      </div>
+
+      <ExternalLink
+        size={16}
+        className="absolute text-muted-foreground right-3 bottom-3"
+      />
+    </article>
+  )
+}
+
+export default async function Results(props: Props) {
+  const { filtervalues } = props
+  const data = await filterProducts(filtervalues)
+
+  return (
+    <div className="grow grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {data.map((i) => {
         return (
-          <Link key={i.id} href={`/resource/${i.slug}`} className="block">
-            <ItemList item={i} />
+          <Link key={i.id} href={`/p/${i.slug}`} className="block">
+            <ProductList item={i} />
           </Link>
         )
       })}

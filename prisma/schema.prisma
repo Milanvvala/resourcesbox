@@ -9,40 +9,26 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-// model Product {
-//   id               Int     @id @default(autoincrement())
-//   slug             String  @unique
-//   title            String
-//   type             String
-//   locationType     String
-//   location         String?
-//   description      String?
-//   salary           Int
-//   companyName      String
-//   applicationEmail String?
-//   applicationUrl   String?
-//   companyLogoUrl   String?
-//   approved         Boolean @default(false)
+enum Type {
+  TOOL
+  RESOURCE
+  COURSE
+}
 
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-
-//   @@map("products")
-// }
-
-model Resource {
+model Product {
   id          Int     @id @default(autoincrement())
-  slug        String @unique
+  slug        String  @unique
   title       String
   description String?
   markdown    String?
   availableOn Int?
   badge       String?
   price       Int?
-  logoUrl      String?
+  logoUrl     String?
   visitLink   String?
   published   Boolean @default(false)
 
+  type Type @default(TOOL)
   // tags Tags[]
 
   categoryId Int?
@@ -51,7 +37,7 @@ model Resource {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
 
-  @@map("resources")
+  @@map("products")
 }
 
 model Category {
@@ -61,7 +47,7 @@ model Category {
   link  String?
   icon  String?
 
-  resource Resource[]
+  products Product[]
 }
 
 // model Tags {
@@ -70,5 +56,5 @@ model Category {
 //   link String?
 //   icon String?
 
-//   resources Resource[]
+//   products Product[]
 // }
