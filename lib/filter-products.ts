@@ -1,7 +1,7 @@
 "use server"
 
 import { db, ProductFilterValues } from "@/lib"
-import { Prisma } from "@prisma/client"
+import { Prisma, Product, Type } from "@prisma/client"
 
 function idPrice(p: string | undefined): number | undefined {
   switch (p) {
@@ -62,4 +62,56 @@ export async function filterProducts(filterValues: ProductFilterValues) {
   })
 
   return data
+}
+
+export const handleCreate = async () => {
+  const md = `
+**About**
+
+Hello World 
+`
+
+  async function main() {
+    const products: Product[] = [
+      // { title:'', description:'', markdown:'', availableOn:123, badge:'', price:1,logoUrl:'', visitLink:'', },
+      {
+        slug: "test123",
+        title: "Notion",
+        description: "desc Notion",
+        markdown: md,
+        availableOn: 123,
+        badge: "Deal",
+        price: 1,
+        logoUrl: "/plogo.png",
+        visitLink: "www.google.com",
+        categoryId: 1,
+        type: Type.TOOL,
+        id: 0,
+        published: false,
+        createdAt: null,
+        updatedAt: null
+      }
+    ]
+    // await Promise.all(
+    //   categories.map(async (category: any) => {
+    //     await prisma.category.create({ data: category })
+    //   })
+    // )
+    await Promise.all(
+      products.map(async (product: any) => {
+        await db.product.create({ data: product })
+        console.log("product created")
+      })
+    )
+  }
+
+  main()
+    .then(async () => {
+      await db.$disconnect()
+    })
+    .catch(async (e) => {
+      console.error("Error while seeding database:", e)
+      await db.$disconnect()
+      process.exit(1)
+    })
 }

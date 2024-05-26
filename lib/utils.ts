@@ -31,4 +31,23 @@ if (process.env.NODE_ENV !== "production") globalThis.prisma = db
 
 // Extra functions
 
+// const PlanSelectionForm: React.FC<{
+//   onChange: (stripePriceId: string) => void
+// }> = () => {
+//   const plans = configuration.plans
 
+//   return (
+//     <div className="flex flex-col space-y-2">
+//       {plans.map((plan) => {
+//         return (
+//           <input
+//             type="radio"
+//             value={plan.stripePriceId}
+//             name="plan"
+//             onChange={(e) => onChange(e.target.value)}
+//           />
+//         )
+//       })}
+//     </div>
+//   )
+// }

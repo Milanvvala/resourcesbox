@@ -12,8 +12,10 @@ import {
   SheetTrigger
 } from "@/components/ui/sheet"
 import { searchUrl } from "@/lib/search-url"
-import { category_types, ProductFilterValues } from "@/lib"
+import { ProductFilterValues } from "@/lib"
 import { price_types } from "@/components/custom/Pricing"
+import { CodeXml, PencilRuler, Volume2 } from "lucide-react"
+import { SelectDataType } from "@/components/utils/SelectComp"
 
 interface PageProps {
   searchParams: {
@@ -23,6 +25,17 @@ interface PageProps {
     price?: string
   }
 }
+
+const category_types: SelectDataType[] = [
+  { id: 1, label: "Design", link: "/search/design", icon: <PencilRuler /> },
+  {
+    id: 2,
+    label: "Development",
+    link: "/search/development",
+    icon: <CodeXml />
+  },
+  { id: 3, label: "Marketing", link: "/search/marketing", icon: <Volume2 /> }
+]
 
 interface FilterFormProps {
   defaultValues: ProductFilterValues
@@ -70,7 +83,11 @@ function FilterSidebar() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={"secondary"} size={"sm"} className="text-lg gap-2 w-fit ">
+        <Button
+          variant={"secondary"}
+          size={"sm"}
+          className="text-lg gap-2 w-fit "
+        >
           <SlidersHorizontal className="h-4 w-4" /> Filters
         </Button>
       </SheetTrigger>
@@ -109,7 +126,7 @@ export default async function page(props: PageProps) {
         </div>
         <section className="flex flex-col gap-4">
           <div className="text-right mb-2">
-          <FilterSidebar />
+            <FilterSidebar />
           </div>
           <Results filtervalues={filterValues} />
         </section>

@@ -38,9 +38,11 @@ export default function SelectComp(props: Props) {
           <SelectItem value="all">All</SelectItem>
           {data.map((el: any) => {
             return (
-              <SelectItem key={el?.id} value={el.label} className="flex gap-2">
-                {el?.icon}
-                {el.label}
+              <SelectItem key={el?.id} value={el.label}>
+                <div className="flex gap-2 items-start">
+                  {el?.icon}
+                  {el.label}
+                </div>
               </SelectItem>
             )
           })}

@@ -1,6 +1,6 @@
 import { Availability, Button, Pricing } from "@/components/comps"
 import { Product } from "@prisma/client"
-import { ExternalLink } from "lucide-react"
+import { Bookmark, ExternalLink, Share2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -12,7 +12,7 @@ export default function Details(props: PageProps) {
   const { product } = props
 
   return (
-    <div className="flex flex-col sm:flex-row items-start gap-6 justify-between p-4 md:p-6 laptop:border rounded-lg laptop:my-8 my-4 w-full">
+    <div className="flex flex-col sm:flex-row items-start gap-6 justify-between p-4 md:p-6 lg:border rounded-lg lg:my-8 my-4 w-full">
       <div className="flex flex-col sm:flex-row items-start sm:gap-4 w-full">
         <div className="flex items-start justify-between w-full sm:w-fit">
           {product.logoUrl && (
@@ -25,20 +25,30 @@ export default function Details(props: PageProps) {
             />
           )}
 
-          <Button asChild className="flex sm:hidden">
-            <Link
-              href={product.visitLink || "/"}
-              target="_blank"
-              className="gap-2 font-semibold text-xl"
-            >
-              <ExternalLink className="h-5 w-5" strokeWidth={2.5} />
-              Visit
-            </Link>
-          </Button>
+          <div className="flex sm:hidden">
+            <Button asChild>
+              <Link
+                href={product.visitLink || "/"}
+                target="_blank"
+                className="gap-2 font-semibold text-xl"
+              >
+                <ExternalLink className="h-5 w-5" strokeWidth={2.5} />
+                Visit
+              </Link>
+            </Button>
+            <div className="flex">
+              <Button variant={"secondary"} size={"icon"}>
+                <Bookmark />
+              </Button>
+              <Button variant={"secondary"} size={"icon"}>
+                <Share2 />
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <div>
-          <div className="space-y-3">
+        <div className="flex flex-col justify-between gap-4">
+          <div className="space-y-2">
             <h1 className="text-2xl md:text-4xl font-bold">{product.title}</h1>
             <Link
               href={"/search/marketing"}
@@ -46,28 +56,41 @@ export default function Details(props: PageProps) {
             >
               {product.categoryId && "Marketing"}
             </Link>
-          </div>
-          <p className="text-muted-foreground text-sm mt-1">
-            {/* {product.description} */}
-          </p>
-
-          <div className="text-muted-foreground space-y-2">
-            <Pricing type={product.price || 2} />
-            <Availability number={123456789} />
+            <p className="text-muted-foreground text-sm">
+              {/* {product.description} */}
+              This is Dummy Description for Product Undurstanding
+            </p>
+            <div className="w-fit">
+              <Pricing type={product.price || 2} />
+            </div>
+            <div className="text-muted-foreground">
+              <Availability number={123456789} />
+            </div>
           </div>
         </div>
       </div>
 
-      <Button asChild className="hidden sm:flex">
-        <Link
-          href={product.visitLink || "/"}
-          target="_blank"
-          className="gap-2 font-semibold text-xl"
-        >
-          <ExternalLink className="h-5 w-5" strokeWidth={2.5} />
-          Visit
-        </Link>
-      </Button>
+      <div className="hidden sm:flex-col sm:flex gap-4">
+        <Button asChild>
+          <Link
+            href={product.visitLink || "/"}
+            target="_blank"
+            className="gap-2 font-semibold text-xl"
+          >
+            <ExternalLink className="h-5 w-5" strokeWidth={2.5} />
+            Visit
+          </Link>
+        </Button>
+
+        <Button variant={"secondary"} className="gap-2 font-semibold text-xl">
+          <Bookmark className="h-5 w-5" strokeWidth={2.5} />
+          Save
+        </Button>
+        <Button variant={"secondary"} className="gap-2 font-semibold text-xl">
+          <Share2 className="h-5 w-5" strokeWidth={2.5} />
+          Share
+        </Button>
+      </div>
     </div>
   )
 }

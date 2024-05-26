@@ -53,7 +53,7 @@ export default function Pricing({ type }: Props) {
     <>
       {filteredTypes.map((ele) => {
         return (
-          <div key={ele.id} className="mx-2">
+          <div key={ele.id}>
             <TooltipComp content={ele.info || "info"} side={"right"}>
               <Badge
                 className="rounded md:flex items-center space-x-1 gap-2 text-md my-1"

@@ -1,0 +1,47 @@
+# to use this file and send Requests install Rest Client from Visual Studio Marketplace
+# https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+### Stripe Get Products
+GET http://localhost:3000/api/webhooks/stripe/getproducts     HTTP/1.1
+### Stripe Get Products
+GET http://localhost:3000/api/webhooks/stripe/payment     HTTP/1.1
+### Stripe Get Products
+GET http://localhost:3000/api/webhooks/stripe/subscription     HTTP/1.1
+
+#-----------------------------------------------------------------
+
+### Crud Create - POST
+POST http://localhost:3000/api/crud     HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "test title 2", 
+  "body": "test desc 2", 
+  "authorId": 1
+}
+
+### Crud Read - GET
+GET http://localhost:3000/api/crud     HTTP/1.1
+
+### Crud Update - PUT # Todo
+PUT http://localhost:3000/api/crud     HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 2,
+  "updatedData": { 
+    "title": "test title 2", 
+    "body": "test desc 2", 
+  },
+}
+
+### Crud Delete - DELETE
+DELETE  http://localhost:3000/api/crud     HTTP/1.1
+Content-Type: application/json
+
+{
+  "id" : 1
+}
+
+### Github UserName Details
+https://api.github.com/users/username

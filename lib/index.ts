@@ -10,5 +10,3 @@ export {
 
 export { cn, productFilterSchema, db } from "./utils"
 export type { ProductFilterValues } from "./utils"
-
-export { category_types } from "./category-types"
